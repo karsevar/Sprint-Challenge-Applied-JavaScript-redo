@@ -182,9 +182,18 @@ function cardsMarkup(props) {
 
   parentContainer.appendChild(authorImage);
 
-  console.log(parentContainer);
+  // console.log(parentContainer);
+  // The div layers seem to be in the right configuration.
+
+  // Appending the parentContainer node tree to the webpage.
+  const cardsContainer = document.querySelector('.cards-container');
+
+  cardsContainer.appendChild(parentContainer);
 
 }
+
+// Testing the function:
+cardObject.forEach(card => cardsMarkup(card));
 
 
 
