@@ -115,7 +115,7 @@ const cardObject = [
 
 
 // Card components function:
-function CardsMarkup(props) {
+function cardsMarkup(props) {
 
   // Markup configuration:
   /* 
@@ -145,7 +145,45 @@ function CardsMarkup(props) {
   authorImage.className = 'author';
 
   // <div class='img-container'>
-  const imageContainer = document.createElement()
+  const imageContainer = document.createElement('div');
+  imageContainer.className = 'img-container';
+
+  // <img src='...'>
+  const imageTag = document.createElement('img');
+  imageTag.src = props.image;
+
+  // <span>
+  const authorText = document.createElement('span');
+  authorText.textContent = props.author;
+
+  /* 
+  <div class='card'>
+    <div class='headline'></div>
+  </div>
+  */
+
+  parentContainer.appendChild(header);
+
+
+  /*
+  <div class='card'>
+    <div class='headline'></div>
+    <div class='author'>
+      <div class='image-container'>
+        <img >
+      </div>
+      <span></span>
+    </div>
+  </div>
+  */
+  imageContainer.appendChild(imageTag);
+  authorImage.appendChild(imageContainer);
+  authorImage.appendChild(authorText);
+
+  parentContainer.appendChild(authorImage);
+
+  console.log(parentContainer);
+
 }
 
 
