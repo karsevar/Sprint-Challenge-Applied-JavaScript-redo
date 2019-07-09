@@ -195,7 +195,6 @@ function cardsMarkup(props) {
 
   // console.log(parentContainer);
   // The div layers seem to be in the right configuration.
-  return parentContainer;
 
 }
 
@@ -210,17 +209,6 @@ class TabLink {
     this.tabElement = tabElement;
     this.props = props
     this.data = tabElement.dataset.tab;
-    
-    if (this.data === 'all') {
-      this.itemElements = props.map(card => cardsMarkup(card));
-    } else {
-      this.itemElements = props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
-    }
-
-    // console.log(`For ${this.data}`, this.itemElements);
-
-    this.tabItems = Array.from(this.itemElements).map(itemElement => new TabCard(itemElement));
-    // console.log(this.tabItems);
 
     this.tabElement.addEventListener('click', this.selectTab.bind(this));
   }
@@ -233,9 +221,11 @@ class TabLink {
 
     this.tabElement.classList.add('active-tab');
 
-    cards.forEach(card => card.style.display = 'none');
-
-    this.tabItems.forEach(tabItem => tabItem.selectCard());
+    if (this.data === 'all') {
+      this.itemElements = this.props.map(card => cardsMarkup(card));
+    } else {
+      this.itemElements = this.props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
+    }
   }
 }
 
