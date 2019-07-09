@@ -2,6 +2,11 @@
 // Data from the Lambda Times website: Planning on converting the data into 
 // DOM Components using classes.
 
+// Idea for this experiment: I want to create a class and function that will 
+// take an array with objects and create new markup elements. In addition the 
+// logic for TabLinks and TabItems will dictate whether the elements will render
+// or not.
+
 const cardObject = [
   {
     header: 'ES8: The Next Step in the Evolution of Javascript and What it Means For Your Projects',
@@ -183,13 +188,14 @@ function cardsMarkup(props) {
 
   parentContainer.appendChild(authorImage);
 
-  // console.log(parentContainer);
-  // The div layers seem to be in the right configuration.
-
   // Appending the parentContainer node tree to the webpage.
   const cardsContainer = document.querySelector('.cards-container');
 
   cardsContainer.appendChild(parentContainer);
+
+  // console.log(parentContainer);
+  // The div layers seem to be in the right configuration.
+  return parentContainer;
 
 }
 
@@ -199,29 +205,16 @@ cardObject.forEach(card => cardsMarkup(card));
 
 //Event handler classes and methods:
 
-class TabCard {
-  constructor(cardElement){
-    this.cardElement = cardElement;
-    // console.log(this.cardElement);
-  }
-
-  selectCard(){
-    const cards = document.querySelectorAll('.card')
-    this.cardElement.style.display = 'flex';
-
-  }
-
-}
-
 class TabLink {
-  constructor(tabElement){
+  constructor(tabElement, props){
     this.tabElement = tabElement;
-    this.data = this.tabElement.dataset.tab;
+    this.props = props
+    this.data = tabElement.dataset.tab;
     
     if (this.data === 'all') {
-      this.itemElements = document.querySelectorAll(`div.card`);
+      this.itemElements = props.map(card => cardsMarkup(card));
     } else {
-      this.itemElements = document.querySelectorAll(`div.card[data-tab="${this.data}"]`);
+      this.itemElements = props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
     }
 
     // console.log(`For ${this.data}`, this.itemElements);
@@ -263,5 +256,5 @@ let tabs = document.querySelectorAll('div.tab');
 let cards = document.querySelectorAll('div.card');
 // console.log(cards)
 
-tabs.forEach(tab => new TabLink(tab));
+tabs.forEach(tab => new TabLink(tab, cardObject));
 
