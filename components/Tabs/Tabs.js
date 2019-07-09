@@ -188,13 +188,7 @@ function cardsMarkup(props) {
 
   parentContainer.appendChild(authorImage);
 
-  // Appending the parentContainer node tree to the webpage.
-  const cardsContainer = document.querySelector('.cards-container');
-
-  cardsContainer.appendChild(parentContainer);
-
-  // console.log(parentContainer);
-  // The div layers seem to be in the right configuration.
+  return parentContainer;
 
 }
 
@@ -210,22 +204,31 @@ class TabLink {
     this.props = props
     this.data = tabElement.dataset.tab;
 
+    if (this.data === 'all') {
+      this.itemElements = this.props.map(card => cardsMarkup(card));
+    } else {
+      this.itemElements = this.props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
+    }
+
     this.tabElement.addEventListener('click', this.selectTab.bind(this));
   }
 
 
-  selectTab(){
+  selectTab(e){
     const links = document.querySelectorAll('.tab');
 
     links.forEach(link => link.classList.remove('active-tab'));
 
     this.tabElement.classList.add('active-tab');
 
-    if (this.data === 'all') {
-      this.itemElements = this.props.map(card => cardsMarkup(card));
-    } else {
-      this.itemElements = this.props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
+    const cardContainer = document.querySelector('.cards-container');
+    const cards = document.querySelectorAll('.card');
+
+    if (cards.length > 0) {
+      cards.forEach(card => cardContainer.removeChild(card));
     }
+    
+    this.itemElements.forEach(item => cardContainer.appendChild(item));
   }
 }
 
