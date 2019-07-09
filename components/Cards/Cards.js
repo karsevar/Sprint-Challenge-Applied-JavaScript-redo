@@ -1,3 +1,6 @@
+// Data from the Lambda Times website: Planning on converting the data into 
+// DOM Components using classes.
+
 const cardObject = [
   {
     header: 'ES8: The Next Step in the Evolution of Javascript and What it Means For Your Projects',
@@ -109,3 +112,45 @@ const cardObject = [
     image: "./assets/max.jpg"
   }
 ];
+
+
+// Card components function:
+function CardsMarkup(props) {
+
+  // Markup configuration:
+  /* 
+  <div class='card' data-tab=${props.data}>
+    <div class='headline'></div>
+    <div class='author'>
+      <div class='img-container'>
+        <img src=${props.image}>
+      </div>
+      <span></span>
+    </div>
+  </div>
+  */
+
+  // <div class='card' data-tab='..'>
+  const parentContainer = document.createElement('div');
+  parentContainer.className = 'card';
+  parentContainer.dataset.tab = props.data;
+
+  // <div class='headline'>
+  const header = document.createElement('div');
+  header.className = 'headline';
+  header.textContent = props.header;
+
+  // <div class='author'>
+  const authorImage = document.createElement('div');
+  authorImage.className = 'author';
+
+  // <div class='img-container'>
+  const imageContainer = document.createElement()
+}
+
+
+
+
+
+
+

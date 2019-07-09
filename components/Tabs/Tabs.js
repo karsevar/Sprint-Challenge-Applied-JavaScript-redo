@@ -26,7 +26,7 @@ class TabLink {
     // console.log(`For ${this.data}`, this.itemElements);
 
     this.tabItems = Array.from(this.itemElements).map(itemElement => new TabCard(itemElement));
-    console.log(this.tabItems);
+    // console.log(this.tabItems);
 
     this.tabElement.addEventListener('click', this.selectTab.bind(this));
   }
@@ -56,7 +56,7 @@ class TabLink {
 
 */
 let tabs = document.querySelectorAll('div.tab');
-console.log(tabs);
+// console.log(tabs);
 
 // div.card selector works.
 let cards = document.querySelectorAll('div.card');
