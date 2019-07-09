@@ -1,16 +1,6 @@
-class TabLink {
-  constructor(tabElement){
-    
-  }
-
-
-  selectTab(){
-
-}
-
-
 class TabCard {
   constructor(cardElement){
+    
     
   }
   selectCard(){
@@ -18,6 +8,29 @@ class TabCard {
   }
 
 }
+
+class TabLink {
+  constructor(tabElement){
+    this.tabElement = tabElement;
+    this.data = this.tabElement.dataset.tab;
+    
+    if (this.data === 'all') {
+      this.itemElements = document.querySelectorAll(`div.card`);
+    } else {
+      this.itemElements = document.querySelectorAll(`div.card[data-tab="${this.data}"]`);
+    }
+
+    // console.log(`For ${this.data}`, this.itemElements);
+
+    this.tabItems = Array.from(this.itemElements).map(itemElement => new TabCard(itemElement));
+  }
+
+
+  selectTab(){
+
+  }
+}
+
 
 /* START HERE: 
 
@@ -29,7 +42,7 @@ class TabCard {
 
 */
 let tabs = document.querySelectorAll('div.tab');
-// console.log(tabs);
+console.log(tabs);
 
 // div.card selector works.
 let cards = document.querySelectorAll('div.card');
