@@ -1,11 +1,5 @@
-// Markup Data and Markup function:
 // Data from the Lambda Times website: Planning on converting the data into 
 // DOM Components using classes.
-
-// Idea for this experiment: I want to create a class and function that will 
-// take an array with objects and create new markup elements. In addition the 
-// logic for TabLinks and TabItems will dictate whether the elements will render
-// or not.
 
 const cardObject = [
   {
@@ -188,7 +182,13 @@ function cardsMarkup(props) {
 
   parentContainer.appendChild(authorImage);
 
-  return parentContainer;
+  // console.log(parentContainer);
+  // The div layers seem to be in the right configuration.
+
+  // Appending the parentContainer node tree to the webpage.
+  const cardsContainer = document.querySelector('.cards-container');
+
+  cardsContainer.appendChild(parentContainer);
 
 }
 
@@ -196,58 +196,8 @@ function cardsMarkup(props) {
 cardObject.forEach(card => cardsMarkup(card));
 
 
-//Event handler classes and methods:
-
-class TabLink {
-  constructor(tabElement, props){
-    this.tabElement = tabElement;
-    this.props = props
-    this.data = tabElement.dataset.tab;
-
-    if (this.data === 'all') {
-      this.itemElements = this.props.map(card => cardsMarkup(card));
-    } else {
-      this.itemElements = this.props.filter(card => card.data === this.data).map(card => cardsMarkup(card));
-    }
-
-    this.tabElement.addEventListener('click', this.selectTab.bind(this));
-  }
 
 
-  selectTab(e){
-    const links = document.querySelectorAll('.tab');
-
-    links.forEach(link => link.classList.remove('active-tab'));
-
-    this.tabElement.classList.add('active-tab');
-
-    const cardContainer = document.querySelector('.cards-container');
-    const cards = document.querySelectorAll('.card');
-
-    if (cards.length > 0) {
-      cards.forEach(card => cardContainer.removeChild(card));
-    }
-    
-    this.itemElements.forEach(item => cardContainer.appendChild(item));
-  }
-}
 
 
-/* START HERE: 
-
-- Select all classes named ".tab" and assign that value to the tabs variable
-
-- With your selection in place, now chain a .forEach() method onto the tabs variable to iterate over the DOM NodeList
-
-- In your .forEach() method's callback function, return a new instance of TabLink and pass in each tab as a parameter
-
-*/
-let tabs = document.querySelectorAll('div.tab');
-// console.log(tabs);
-
-// div.card selector works.
-let cards = document.querySelectorAll('div.card');
-// console.log(cards)
-
-tabs.forEach(tab => new TabLink(tab, cardObject));
 
