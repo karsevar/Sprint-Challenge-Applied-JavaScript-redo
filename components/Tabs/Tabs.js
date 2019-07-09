@@ -1,10 +1,14 @@
 class TabCard {
   constructor(cardElement){
-    
-    
+    this.cardElement = cardElement;
+    // console.log(this.cardElement);
   }
+
   selectCard(){
-    
+    const cards = document.querySelectorAll('.card')
+    cards.forEach(card => card.style.display = 'none');
+    this.cardElement.style.display = 'flex';
+
   }
 
 }
@@ -23,11 +27,19 @@ class TabLink {
     // console.log(`For ${this.data}`, this.itemElements);
 
     this.tabItems = Array.from(this.itemElements).map(itemElement => new TabCard(itemElement));
+
+    this.tabElement.addEventListener('click', this.selectTab.bind(this));
   }
 
 
   selectTab(){
+    const links = document.querySelectorAll('.tab');
 
+    links.forEach(link => link.classList.remove('active-tab'));
+
+    this.tabElement.classList.add('active-tab');
+
+    this.tabItems.forEach(tabItem => tabItem.selectCard());
   }
 }
 
