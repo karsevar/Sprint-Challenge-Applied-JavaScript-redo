@@ -5,7 +5,6 @@ class TabCard {
   }
 
   selectCard(){
-    const cards = document.querySelectorAll('.card')
     this.cardElement.style.display = 'flex';
 
   }
@@ -39,6 +38,7 @@ class TabLink {
 
     this.tabElement.classList.add('active-tab');
 
+    const cards = document.querySelectorAll('.card');
     cards.forEach(card => card.style.display = 'none');
 
     this.tabItems.forEach(tabItem => tabItem.selectCard());
